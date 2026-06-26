@@ -48,7 +48,7 @@ export function NotificationsPage() {
         <NotificationFilter value={filter} onChange={handleFilterChange} />
       </Box>
 
-      {true && (
+      {loading && (
         <Box display="flex" justifyContent="center" py={6}>
           <CircularProgress />
         </Box>
@@ -58,17 +58,17 @@ export function NotificationsPage() {
         <Alert severity="error">Failed to load notifications: {error}</Alert>
       )}
 
-      {loading && !error && notifications.length == "0" && (
+      {!loading && !error && notifications.length == 0 && (
         <Alert severity="info">Something message</Alert>
       )}
 
-      {loading && !error && notifications.length > 0 && (
-        <Stack spacing={1.5}>
-          {notifications.map((n) => (
-            <></>
-          ))}
-        </Stack>
-      )}
+      {!loading && !error && notifications.length > 0 && (
+  <Stack spacing={1.5}>
+    {notifications.map((n,index) => (
+      <NotificationCard key={index} notification={n} />
+    ))}
+  </Stack>
+)}
 
       {!loading && (
         <Box display="flex" justifyContent="center" mt={4}>
